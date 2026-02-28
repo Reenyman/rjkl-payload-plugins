@@ -1,0 +1,36 @@
+{
+  "name": "@rjkl/payload-plugins",
+  "version": "1.0.0",
+  "description": "Payload CMS Plugins für RJKL-Projekte: Kundenangebot & Staging-Gate",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./kundenangebot": "./src/kundenangebot/index.ts",
+    "./kundenangebot/AngebotSeite": "./src/kundenangebot/AngebotSeite.tsx",
+    "./kundenangebot/AngebotBanner": "./src/kundenangebot/AngebotBanner.tsx",
+    "./kundenangebot/AngebotBannerWrapper": "./src/kundenangebot/AngebotBannerWrapper.tsx",
+    "./staging-gate": "./src/staging-gate/index.ts",
+    "./staging-gate/actions": "./src/staging-gate/actions.ts",
+    "./staging-gate/StagingLoginSeite": "./src/staging-gate/StagingLoginSeite.tsx",
+    "./staging-gate/middleware": "./src/staging-gate/middleware.ts"
+  },
+  "files": [
+    "src/",
+    "templates/"
+  ],
+  "peerDependencies": {
+    "next": ">=15.0.0",
+    "payload": ">=3.0.0",
+    "react": ">=19.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Reenyman/rjkl-payload-plugins.git"
+  },
+  "author": "RJKL",
+  "license": "UNLICENSED",
+  "private": false
+}
