@@ -1,4 +1,4 @@
-# @rjkl/payload-plugins
+# @reenyman/payload-plugins
 
 Wiederverwendbare Payload CMS Plugins für RJKL-Projekte.
 
@@ -13,7 +13,7 @@ Passwortschutz für Staging-Umgebungen. Kunden können sich mit einfachen Zugang
 ## Installation
 
 ```bash
-npm install @rjkl/payload-plugins
+npm install @reenyman/payload-plugins
 ```
 
 > Voraussetzung: `.npmrc` mit GitHub Packages Registry konfiguriert:
@@ -29,8 +29,8 @@ npm install @rjkl/payload-plugins
 In `payload.config.ts`:
 
 ```ts
-import { kundenangebotPlugin } from '@rjkl/payload-plugins/kundenangebot'
-import { stagingGatePlugin } from '@rjkl/payload-plugins/staging-gate'
+import { kundenangebotPlugin } from '@reenyman/payload-plugins/kundenangebot'
+import { stagingGatePlugin } from '@reenyman/payload-plugins/staging-gate'
 
 export default buildConfig({
   plugins: [
@@ -46,8 +46,8 @@ export default buildConfig({
 Die Seiten können nicht direkt aus npm kommen (Next.js App Router erfordert Dateien im Projekt). Kopiere die Vorlagen aus `templates/` in dein Projekt:
 
 ```
-node_modules/@rjkl/payload-plugins/templates/angebot/     → src/app/angebot/
-node_modules/@rjkl/payload-plugins/templates/staging-login/ → src/app/staging-login/
+node_modules/@reenyman/payload-plugins/templates/angebot/     → src/app/angebot/
+node_modules/@reenyman/payload-plugins/templates/staging-login/ → src/app/staging-login/
 ```
 
 ### 3. Angebot-Banner einbinden
@@ -56,7 +56,7 @@ Im Frontend-Layout (`src/app/(frontend)/layout.tsx`):
 
 ```tsx
 import config from '@payload-config'
-import { AngebotBannerWrapper } from '@rjkl/payload-plugins/kundenangebot/AngebotBannerWrapper'
+import { AngebotBannerWrapper } from '@reenyman/payload-plugins/kundenangebot/AngebotBannerWrapper'
 
 // Im JSX:
 <AngebotBannerWrapper config={config} />
@@ -69,7 +69,7 @@ In `src/middleware.ts`:
 ```ts
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { withStagingGate } from '@rjkl/payload-plugins/staging-gate/middleware'
+import { withStagingGate } from '@reenyman/payload-plugins/staging-gate/middleware'
 
 export function middleware(request: NextRequest) {
   const blocked = withStagingGate(request)
@@ -102,7 +102,7 @@ Da das Paket TSX direkt exportiert (kein Build-Schritt), muss Next.js das Paket 
 
 ```js
 const nextConfig = {
-  transpilePackages: ['@rjkl/payload-plugins'],
+  transpilePackages: ['@reenyman/payload-plugins'],
   // ...
 }
 ```

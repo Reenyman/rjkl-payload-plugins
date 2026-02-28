@@ -2,8 +2,8 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import { erstelleStagingActions } from '@rjkl/payload-plugins/staging-gate/actions'
-import { StagingLoginSeite } from '@rjkl/payload-plugins/staging-gate/StagingLoginSeite'
+import { erstelleStagingActions } from '@reenyman/payload-plugins/staging-gate/actions'
+import { StagingLoginSeite } from '@reenyman/payload-plugins/staging-gate/StagingLoginSeite'
 
 export const dynamic = 'force-dynamic'
 

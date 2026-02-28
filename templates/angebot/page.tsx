@@ -1,7 +1,7 @@
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { redirect } from 'next/navigation'
-import { AngebotSeite } from '@rjkl/payload-plugins/kundenangebot/AngebotSeite'
+import { AngebotSeite } from '@reenyman/payload-plugins/kundenangebot/AngebotSeite'
 
 export const dynamic = 'force-dynamic'
 

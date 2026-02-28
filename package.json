@@ -1,5 +1,5 @@
 {
-  "name": "@rjkl/payload-plugins",
+  "name": "@reenyman/payload-plugins",
   "version": "1.0.0",
   "description": "Payload CMS Plugins für RJKL-Projekte: Kundenangebot & Staging-Gate",
   "type": "module",
