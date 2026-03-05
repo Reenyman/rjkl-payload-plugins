@@ -34,7 +34,8 @@ export default async function AngebotPage() {
   // Pakete aufbereiten
   const pakete = (angebot.pakete as {
     name: string
-    preis: string
+    preisEinmalig: string
+    preisMonatlich: string
     beschreibung?: string | null
     features?: { feature: string }[]
     hervorgehoben?: boolean
@@ -72,6 +73,11 @@ export default async function AngebotPage() {
       betrag: (angebot.einmalpreis as Record<string, unknown>)?.betrag as number | null,
       originalpreis: (angebot.einmalpreis as Record<string, unknown>)?.originalpreis as number | null,
       beschreibung: (angebot.einmalpreis as Record<string, unknown>)?.beschreibung as string | null,
+    },
+    monatspreis: {
+      betrag: (angebot.monatspreis as Record<string, unknown>)?.betrag as number | null,
+      originalpreis: (angebot.monatspreis as Record<string, unknown>)?.originalpreis as number | null,
+      beschreibung: (angebot.monatspreis as Record<string, unknown>)?.beschreibung as string | null,
     },
     pakete,
     kontakt: kontaktRaw ? {

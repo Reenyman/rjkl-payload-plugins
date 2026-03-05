@@ -77,7 +77,7 @@ export const Kundenangebot: GlobalConfig = {
         {
           name: 'ueberschrift',
           type: 'text',
-          label: 'Überschrift',
+          label: 'Ueberschrift',
           defaultValue: 'Was ich für dich umsetze',
         },
         {
@@ -113,7 +113,7 @@ export const Kundenangebot: GlobalConfig = {
         {
           name: 'ueberschrift',
           type: 'text',
-          label: 'Überschrift',
+          label: 'Ueberschrift',
           defaultValue: 'Dein individuelles Design',
         },
         {
@@ -191,6 +191,40 @@ export const Kundenangebot: GlobalConfig = {
       ],
     },
     {
+      name: 'monatspreis',
+      type: 'group',
+      label: 'Monatlicher Website-Preis',
+      admin: {
+        description: 'Alternative zum Einmalpreis — der Kunde zahlt die Website monatlich ab.',
+      },
+      fields: [
+        {
+          name: 'betrag',
+          type: 'number',
+          label: 'Betrag (EUR/Monat)',
+          admin: {
+            description: 'Monatlicher Preis für die Website (z.B. 92).',
+          },
+        },
+        {
+          name: 'originalpreis',
+          type: 'number',
+          label: 'Originalpreis (EUR/Monat)',
+          admin: {
+            description: 'Ursprünglicher Monatspreis für Streichpreis-Darstellung. Leer lassen, wenn kein Rabatt.',
+          },
+        },
+        {
+          name: 'beschreibung',
+          type: 'textarea',
+          label: 'Beschreibung',
+          admin: {
+            description: 'Erklärung zum Monatsmodell.',
+          },
+        },
+      ],
+    },
+    {
       name: 'pakete',
       type: 'array',
       label: 'Pakete',
@@ -204,12 +238,21 @@ export const Kundenangebot: GlobalConfig = {
           required: true,
         },
         {
-          name: 'preis',
+          name: 'preisEinmalig',
           type: 'text',
-          label: 'Preis',
+          label: 'Preis (bei Einmalzahlung)',
           required: true,
           admin: {
-            description: 'Z.B. "29 EUR/Monat" oder "349 EUR einmalig"',
+            description: 'Paketpreis wenn der Kunde die Website einmalig bezahlt. Z.B. "19 EUR/Monat"',
+          },
+        },
+        {
+          name: 'preisMonatlich',
+          type: 'text',
+          label: 'Preis (bei monatlicher Zahlung)',
+          required: true,
+          admin: {
+            description: 'Paketpreis wenn der Kunde die Website monatlich bezahlt. Z.B. "49 EUR/Monat"',
           },
         },
         {
@@ -265,6 +308,14 @@ export const Kundenangebot: GlobalConfig = {
           name: 'website',
           type: 'text',
           label: 'Website',
+        },
+        {
+          name: 'empfaengerEmail',
+          type: 'email',
+          label: 'Empfänger-E-Mail für Anfragen',
+          admin: {
+            description: 'An diese Adresse werden Angebotsanfragen gesendet. Wird NICHT auf der Seite angezeigt.',
+          },
         },
         {
           name: 'abschlussText',

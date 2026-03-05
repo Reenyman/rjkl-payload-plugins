@@ -1,9 +1,8 @@
 import { getPayload } from 'payload'
-import type { SanitizedConfig } from 'payload'
+import config from '@payload-config'
 import { AngebotBanner } from './AngebotBanner'
 
-/** Server Component — Config wird vom Hostprojekt als Prop übergeben */
-export async function AngebotBannerWrapper({ config }: { config: Promise<SanitizedConfig> }) {
+export async function AngebotBannerWrapper() {
   const payload = await getPayload({ config })
   const angebot = await payload.findGlobal({ slug: 'kundenangebot' })
 

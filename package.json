@@ -1,6 +1,6 @@
 {
   "name": "@reenyman/payload-plugins",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Payload CMS Plugins für RJKL-Projekte: Kundenangebot & Staging-Gate",
   "type": "module",
   "exports": {
@@ -9,6 +9,7 @@
     "./kundenangebot/AngebotSeite": "./src/kundenangebot/AngebotSeite.tsx",
     "./kundenangebot/AngebotBanner": "./src/kundenangebot/AngebotBanner.tsx",
     "./kundenangebot/AngebotBannerWrapper": "./src/kundenangebot/AngebotBannerWrapper.tsx",
+    "./kundenangebot/angebot-anfrage-schema": "./src/kundenangebot/angebot-anfrage-schema.ts",
     "./staging-gate": "./src/staging-gate/index.ts",
     "./staging-gate/actions": "./src/staging-gate/actions.ts",
     "./staging-gate/StagingLoginSeite": "./src/staging-gate/StagingLoginSeite.tsx",
@@ -21,7 +22,11 @@
   "peerDependencies": {
     "next": ">=15.0.0",
     "payload": ">=3.0.0",
-    "react": ">=19.0.0"
+    "react": ">=19.0.0",
+    "react-hook-form": ">=7.0.0",
+    "@hookform/resolvers": ">=3.0.0",
+    "zod": ">=3.0.0",
+    "resend": ">=3.0.0"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
