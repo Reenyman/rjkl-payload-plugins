@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 import type { GlobalConfig } from 'payload'
 
 export const StagingGate: GlobalConfig = {
@@ -86,6 +87,103 @@ export const StagingGate: GlobalConfig = {
       type: 'text',
       label: 'Datenschutz-URL',
       defaultValue: 'https://www.rjkl.de/datenschutz',
+    },
+    {
+      name: 'vorschauLinks',
+      type: 'array',
+      label: 'Vorschau-Links',
+      admin: {
+        description:
+          'Erstelle Links mit Auto-Login für Kunden. Jeder Seitenaufruf wird gezählt.',
+      },
+      fields: [
+        {
+          name: 'name',
+          type: 'text',
+          label: 'Empfänger',
+          required: true,
+          admin: {
+            description: "Z.B. 'Frau Müller', 'Kunde XY'",
+          },
+        },
+        {
+          name: 'token',
+          type: 'text',
+          label: 'Token',
+          required: true,
+          admin: {
+            readOnly: true,
+            description: 'Wird automatisch generiert.',
+          },
+          hooks: {
+            beforeValidate: [
+              ({ value }) => {
+                if (!value) {
+                  return crypto.randomBytes(16).toString('hex')
+                }
+                return value
+              },
+            ],
+          },
+        },
+        {
+          name: 'aktiv',
+          type: 'checkbox',
+          label: 'Aktiv',
+          defaultValue: true,
+        },
+        {
+          name: 'nutzungen',
+          type: 'number',
+          label: 'Seitenaufrufe',
+          defaultValue: 0,
+          admin: {
+            readOnly: true,
+            description: 'Wird automatisch gezählt.',
+          },
+        },
+        {
+          name: 'letzterZugriff',
+          type: 'date',
+          label: 'Letzter Zugriff',
+          admin: {
+            readOnly: true,
+            date: {
+              displayFormat: 'dd.MM.yyyy HH:mm',
+            },
+          },
+        },
+        {
+          name: 'erstelltAm',
+          type: 'date',
+          label: 'Erstellt am',
+          admin: {
+            readOnly: true,
+            date: {
+              displayFormat: 'dd.MM.yyyy HH:mm',
+            },
+          },
+          hooks: {
+            beforeValidate: [
+              ({ value }) => {
+                if (!value) {
+                  return new Date().toISOString()
+                }
+                return value
+              },
+            ],
+          },
+        },
+        {
+          name: 'vorschauUrl',
+          type: 'ui',
+          admin: {
+            components: {
+              Field: '@reenyman/payload-plugins/staging-gate/VorschauUrlFeld',
+            },
+          },
+        },
+      ],
     },
   ],
 }

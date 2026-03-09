@@ -14,6 +14,8 @@
     "./staging-gate/actions": "./src/staging-gate/actions.ts",
     "./staging-gate/StagingLoginSeite": "./src/staging-gate/StagingLoginSeite.tsx",
     "./staging-gate/middleware": "./src/staging-gate/middleware.ts",
+    "./staging-gate/VorschauUrlFeld": "./src/staging-gate/VorschauUrlFeld.tsx",
+    "./staging-gate/tracking-route": "./src/staging-gate/tracking-route.ts",
     "./cookie-consent": "./src/cookie-consent/index.ts",
     "./cookie-consent/cookie-consent": "./src/cookie-consent/cookie-consent.ts",
     "./cookie-consent/block": "./src/cookie-consent/block.ts",
