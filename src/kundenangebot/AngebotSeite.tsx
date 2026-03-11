@@ -63,6 +63,9 @@ interface AngebotDaten {
     website?: string | null
     abschlussText?: string | null
   }
+  investitionUeberschrift?: string | null
+  paketwahlUeberschrift?: string | null
+  kontaktUeberschrift?: string | null
   akzentfarbe?: string | null
 }
 
@@ -84,9 +87,9 @@ function SektionsTrenner() {
 // CSS-only Tooltip für Fachbegriffe — wrapped erkannte Begriffe in einen Span mit title-Attribut
 function TextMitTooltips({ text }: { text: string }) {
   const fachbegriffe: Record<string, string> = {
-    'SEO': 'Suchmaschinenoptimierung — damit deine Website bei Google gut gefunden wird',
-    'SSL': 'Verschlüsselte Verbindung — das grüne Schloss im Browser',
-    'CMS': 'Content-Management-System — damit du Inhalte selbst bearbeiten kannst',
+    'SEO': 'Suchmaschinenoptimierung, damit Ihre Website bei Google gut gefunden wird',
+    'SSL': 'Verschlüsselte Verbindung für sichere Datenübertragung',
+    'CMS': 'Content-Management-System, damit Sie Inhalte selbst bearbeiten können',
     'Responsive': 'Die Website passt sich automatisch an Handy, Tablet und PC an',
   }
 
@@ -210,7 +213,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
             lineHeight: 1.3,
           }}
         >
-          Angebot für {daten.kundenname || 'dich'}
+          Angebot für {daten.kundenname || 'Sie'}
         </h1>
       </div>
 
@@ -262,7 +265,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
           <SektionsTrenner />
           <section>
             <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '16px' }}>
-              {daten.leistungsbeschreibung.ueberschrift || 'Was ich für dich umsetze'}
+              {daten.leistungsbeschreibung.ueberschrift || 'Was ich für Sie umsetze'}
             </h2>
             {daten.leistungsbeschreibung.einleitung && (
               <p style={{ color: '#555', marginBottom: '32px' }}>
@@ -318,7 +321,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
           <SektionsTrenner />
           <section>
             <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '16px' }}>
-              {daten.designBeschreibung.ueberschrift || 'Dein individuelles Design'}
+              {daten.designBeschreibung.ueberschrift || 'Ihr individuelles Design'}
             </h2>
             <p style={{ color: '#555', whiteSpace: 'pre-line' }}>
               {daten.designBeschreibung.text}
@@ -389,7 +392,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
           <SektionsTrenner />
           <section>
             <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '32px', textAlign: 'center' }}>
-              Deine Investition
+              {daten.investitionUeberschrift || 'Ihre Investition'}
             </h2>
 
             {/* Pill-Toggle */}
@@ -535,7 +538,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
             {daten.pakete && daten.pakete.length > 0 && (
               <>
                 <h3 style={{ fontSize: '20px', fontWeight: 700, marginBottom: '24px', textAlign: 'center' }}>
-                  Wähle dein Servicepaket
+                  {daten.paketwahlUeberschrift || 'Wählen Sie Ihr Servicepaket'}
                 </h3>
                 <div
                   style={{
@@ -624,7 +627,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
                                 key={j}
                                 style={{
                                   display: 'flex',
-                                  alignItems: 'center',
+                                  alignItems: 'flex-start',
                                   gap: '8px',
                                   fontSize: '14px',
                                   marginBottom: '8px',
@@ -632,18 +635,19 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
                                 }}
                               >
                                 <svg
-                                  width="14"
-                                  height="14"
+                                  width="16"
+                                  height="16"
                                   viewBox="0 0 24 24"
                                   fill="none"
                                   stroke={akzent}
                                   strokeWidth="2.5"
                                   strokeLinecap="round"
                                   strokeLinejoin="round"
+                                  style={{ flexShrink: 0, marginTop: '2px' }}
                                 >
                                   <polyline points="20 6 9 17 4 12" />
                                 </svg>
-                                {f.feature}
+                                <span>{f.feature}</span>
                               </li>
                             ))}
                           </ul>
@@ -931,7 +935,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
                         textAlign: 'center',
                       }}
                     >
-                      Beim Versenden ist ein Fehler aufgetreten. Bitte versuche es erneut.
+                      Beim Versenden ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.
                     </div>
                   )}
 
@@ -995,7 +999,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
                   Anfrage erfolgreich gesendet!
                 </h3>
                 <p style={{ color: '#166534', fontSize: '15px', margin: 0 }}>
-                  Vielen Dank für dein Interesse. Ich melde mich in Kürze bei dir.
+                  Vielen Dank für Ihr Interesse. Ich melde mich in Kürze bei Ihnen.
                 </p>
               </div>
             )}
@@ -1018,7 +1022,7 @@ export function AngebotSeite({ daten }: { daten: AngebotDaten }) {
           <SektionsTrenner />
           <section style={{ textAlign: 'center' }}>
             <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '16px' }}>
-              Fragen? Melde dich bei mir
+              {daten.kontaktUeberschrift || 'Fragen? Melden Sie sich bei mir'}
             </h2>
             {daten.kontakt.abschlussText && (
               <p style={{ color: '#555', maxWidth: '600px', margin: '0 auto 24px', whiteSpace: 'pre-line' }}>

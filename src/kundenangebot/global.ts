@@ -64,7 +64,7 @@ export const Kundenangebot: GlobalConfig = {
       name: 'bannerText',
       type: 'text',
       label: 'Banner-Text',
-      defaultValue: 'Hier geht es zu deinem individuellen Website-Angebot',
+      defaultValue: 'Hier geht es zu Ihrem individuellen Website-Angebot',
       admin: {
         description: 'Text, der im Angebotsbanner oben auf der Website angezeigt wird.',
       },
@@ -78,7 +78,7 @@ export const Kundenangebot: GlobalConfig = {
           name: 'ueberschrift',
           type: 'text',
           label: 'Ueberschrift',
-          defaultValue: 'Was ich für dich umsetze',
+          defaultValue: 'Was ich für Sie umsetze',
         },
         {
           name: 'einleitung',
@@ -114,7 +114,7 @@ export const Kundenangebot: GlobalConfig = {
           name: 'ueberschrift',
           type: 'text',
           label: 'Ueberschrift',
-          defaultValue: 'Dein individuelles Design',
+          defaultValue: 'Ihr individuelles Design',
         },
         {
           name: 'text',
@@ -326,6 +326,33 @@ export const Kundenangebot: GlobalConfig = {
           },
         },
       ],
+    },
+    {
+      name: 'investitionUeberschrift',
+      type: 'text',
+      label: 'Überschrift Investition',
+      defaultValue: 'Ihre Investition',
+      admin: {
+        description: 'Überschrift über dem Preisbereich.',
+      },
+    },
+    {
+      name: 'paketwahlUeberschrift',
+      type: 'text',
+      label: 'Überschrift Paketwahl',
+      defaultValue: 'Wählen Sie Ihr Servicepaket',
+      admin: {
+        description: 'Überschrift über den Paketen.',
+      },
+    },
+    {
+      name: 'kontaktUeberschrift',
+      type: 'text',
+      label: 'Überschrift Kontakt',
+      defaultValue: 'Fragen? Melden Sie sich bei mir',
+      admin: {
+        description: 'Überschrift über dem Kontaktbereich.',
+      },
     },
     {
       name: 'akzentfarbe',
