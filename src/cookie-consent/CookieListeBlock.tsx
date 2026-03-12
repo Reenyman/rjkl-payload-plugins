@@ -39,7 +39,7 @@ const KATEGORIE_FARBEN: Record<string, string> = {
 
 export async function CookieListeBlock({ config, block }: CookieListeBlockProps) {
   const payload = await getPayload({ config })
-  const ergebnis = await payload.find({
+  const ergebnis = await (payload as any).find({
     collection: 'cookies',
     where: { aktiv: { equals: true } },
     limit: 100,
