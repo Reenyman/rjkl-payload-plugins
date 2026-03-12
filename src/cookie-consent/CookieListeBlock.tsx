@@ -1,5 +1,5 @@
 import { getPayload } from 'payload'
-import config from '@payload-config'
+import type { SanitizedConfig } from 'payload'
 import { cn } from './utils'
 
 type Cookie = {
@@ -12,6 +12,7 @@ type Cookie = {
 }
 
 type CookieListeBlockProps = {
+  config: SanitizedConfig | Promise<SanitizedConfig>
   block: {
     blockType: string
     ueberschrift?: string
@@ -36,7 +37,7 @@ const KATEGORIE_FARBEN: Record<string, string> = {
   marketing: 'bg-purple-100 text-purple-800',
 }
 
-export async function CookieListeBlock({ block }: CookieListeBlockProps) {
+export async function CookieListeBlock({ config, block }: CookieListeBlockProps) {
   const payload = await getPayload({ config })
   const ergebnis = await payload.find({
     collection: 'cookies',
