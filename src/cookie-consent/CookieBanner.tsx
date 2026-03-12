@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { X } from 'lucide-react'
 import {
   getConsentDaten,
   setConsentDaten,
@@ -11,9 +10,44 @@ import {
   KATEGORIE_BESCHREIBUNGEN,
   type CookieKategorie,
 } from './cookie-consent'
-import { cn } from './utils'
 
-export function CookieBanner() {
+export type CookieBannerTheme = {
+  /** Hintergrundfarbe des Banners */
+  bg?: string
+  /** Textfarbe */
+  text?: string
+  /** Gedämpfte Textfarbe (Beschreibungen, sekundäre Texte) */
+  textMuted?: string
+  /** Primäre Button-Hintergrundfarbe (Alle akzeptieren) */
+  primaryBg?: string
+  /** Primäre Button-Textfarbe */
+  primaryText?: string
+  /** Rahmenfarbe für Outline-Buttons */
+  borderColor?: string
+  /** Akzentfarbe für Checkboxen */
+  accentColor?: string
+}
+
+const DEFAULT_THEME: Required<CookieBannerTheme> = {
+  bg: '#1a1a1a',
+  text: '#ffffff',
+  textMuted: 'rgba(255,255,255,0.65)',
+  primaryBg: '#ffffff',
+  primaryText: '#1a1a1a',
+  borderColor: 'rgba(255,255,255,0.25)',
+  accentColor: '#ffffff',
+}
+
+type CookieBannerProps = {
+  /** Farbschema anpassen */
+  theme?: CookieBannerTheme
+  /** Link zur Datenschutzseite (Standard: /datenschutz) */
+  datenschutzLink?: string
+}
+
+export function CookieBanner({ theme: themeOverrides, datenschutzLink = '/datenschutz' }: CookieBannerProps = {}) {
+  const theme = { ...DEFAULT_THEME, ...themeOverrides }
+
   const [sichtbar, setSichtbar] = useState(false)
   const [gemountet, setGemountet] = useState(false)
   const [erweitert, setErweitert] = useState(false)
@@ -73,50 +107,76 @@ export function CookieBanner() {
 
   if (!gemountet || !sichtbar) return null
 
-  const btnPrimary =
-    'w-full rounded-md px-4 py-2 text-sm font-medium bg-primary text-primary-foreground hover:opacity-90 transition-opacity cursor-pointer'
-  const btnOutline =
-    'w-full rounded-md px-4 py-2 text-sm font-medium border border-background/30 text-background hover:bg-background/10 transition-colors cursor-pointer'
-
   return (
     <div
-      className={cn(
-        'fixed z-50',
-        'bottom-0 left-0 right-0',
-        'sm:bottom-4 sm:right-4 sm:left-auto sm:max-w-sm',
-      )}
+      style={{
+        position: 'fixed',
+        zIndex: 50,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+      }}
       role="dialog"
       aria-label="Cookie-Einstellungen"
       aria-live="polite"
     >
+      <style>{`
+        @media (min-width: 640px) {
+          [data-cookie-banner-container] {
+            bottom: 16px !important;
+            right: 16px !important;
+            left: auto !important;
+            max-width: 384px !important;
+            border-radius: 12px !important;
+          }
+        }
+      `}</style>
       <div
-        className={cn(
-          'bg-foreground text-background',
-          'p-5 shadow-lg',
-          'rounded-t-lg',
-          'sm:rounded-lg',
-        )}
+        data-cookie-banner-container
+        style={{
+          background: theme.bg,
+          color: theme.text,
+          padding: '20px',
+          boxShadow: '0 -4px 24px rgba(0,0,0,0.2)',
+          borderTopLeftRadius: '12px',
+          borderTopRightRadius: '12px',
+          position: 'relative',
+        }}
       >
         {/* Schließen-Button */}
         <button
           onClick={nurNotwendige}
-          className="absolute top-3 right-3 text-background/60 hover:text-background transition-colors cursor-pointer"
+          style={{
+            position: 'absolute',
+            top: '12px',
+            right: '12px',
+            color: theme.textMuted,
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '4px',
+            lineHeight: 1,
+            fontSize: '18px',
+          }}
           aria-label="Schließen"
+          onMouseOver={(e) => (e.currentTarget.style.color = theme.text)}
+          onMouseOut={(e) => (e.currentTarget.style.color = theme.textMuted)}
         >
-          <X className="h-4 w-4" />
+          ✕
         </button>
 
-        <h3 className="text-base font-bold mb-2 pr-6">
+        <h3 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '8px', paddingRight: '24px' }}>
           Diese Website verwendet Cookies
         </h3>
 
-        <p className="text-xs text-background/80 mb-4 leading-relaxed">
+        <p style={{ fontSize: '12px', color: theme.textMuted, marginBottom: '16px', lineHeight: 1.6 }}>
           Wir nutzen Cookies, um dir das beste Erlebnis zu bieten. Einige Cookies
           sind notwendig für den Betrieb der Website. Du kannst selbst wählen,
           welche optionalen Cookies du zulassen möchtest.{' '}
           <Link
-            href="/datenschutz"
-            className="underline hover:text-background transition-colors"
+            href={datenschutzLink}
+            style={{ color: theme.textMuted, textDecoration: 'underline' }}
           >
             Datenschutz
           </Link>
@@ -124,18 +184,18 @@ export function CookieBanner() {
 
         {/* Erweiterte Ansicht mit Kategorie-Toggles */}
         {erweitert && (
-          <div className="mb-4 space-y-2">
+          <div style={{ marginBottom: '16px' }}>
             {/* Notwendig — immer aktiv */}
-            <label className="flex items-start gap-3 py-2">
+            <label style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '8px 0' }}>
               <input
                 type="checkbox"
                 checked
                 disabled
-                className="mt-0.5 h-4 w-4 rounded accent-primary opacity-60"
+                style={{ marginTop: '2px', width: '16px', height: '16px', accentColor: theme.accentColor, opacity: 0.6 }}
               />
-              <div className="flex-1 min-w-0">
-                <span className="text-sm font-semibold">Notwendig</span>
-                <p className="text-xs text-background/60 leading-snug">
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <span style={{ fontSize: '14px', fontWeight: 600 }}>Notwendig</span>
+                <p style={{ fontSize: '12px', color: theme.textMuted, lineHeight: 1.4, marginTop: '2px' }}>
                   Für den Betrieb der Website erforderlich. Immer aktiv.
                 </p>
               </div>
@@ -144,19 +204,19 @@ export function CookieBanner() {
             {COOKIE_KATEGORIEN.map((kategorie) => (
               <label
                 key={kategorie}
-                className="flex items-start gap-3 py-2 cursor-pointer"
+                style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '8px 0', cursor: 'pointer' }}
               >
                 <input
                   type="checkbox"
                   checked={kategorien[kategorie]}
                   onChange={() => toggleKategorie(kategorie)}
-                  className="mt-0.5 h-4 w-4 rounded accent-primary"
+                  style={{ marginTop: '2px', width: '16px', height: '16px', accentColor: theme.accentColor }}
                 />
-                <div className="flex-1 min-w-0">
-                  <span className="text-sm font-semibold">
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <span style={{ fontSize: '14px', fontWeight: 600 }}>
                     {KATEGORIE_LABELS[kategorie]}
                   </span>
-                  <p className="text-xs text-background/60 leading-snug">
+                  <p style={{ fontSize: '12px', color: theme.textMuted, lineHeight: 1.4, marginTop: '2px' }}>
                     {KATEGORIE_BESCHREIBUNGEN[kategorie]}
                   </p>
                 </div>
@@ -165,27 +225,60 @@ export function CookieBanner() {
           </div>
         )}
 
-        <div className="flex flex-col gap-2">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {erweitert ? (
             <>
-              <button onClick={auswahlSpeichern} className={btnPrimary}>
+              <button
+                onClick={auswahlSpeichern}
+                style={{
+                  width: '100%', borderRadius: '6px', padding: '8px 16px',
+                  fontSize: '14px', fontWeight: 500, cursor: 'pointer',
+                  background: theme.primaryBg, color: theme.primaryText, border: 'none',
+                }}
+              >
                 Auswahl speichern
               </button>
-              <button onClick={alleAkzeptieren} className={btnOutline}>
+              <button
+                onClick={alleAkzeptieren}
+                style={{
+                  width: '100%', borderRadius: '6px', padding: '8px 16px',
+                  fontSize: '14px', fontWeight: 500, cursor: 'pointer',
+                  background: 'transparent', color: theme.text,
+                  border: `1px solid ${theme.borderColor}`,
+                }}
+              >
                 Alle akzeptieren
               </button>
             </>
           ) : (
             <>
-              <button onClick={alleAkzeptieren} className={btnPrimary}>
+              <button
+                onClick={alleAkzeptieren}
+                style={{
+                  width: '100%', borderRadius: '6px', padding: '8px 16px',
+                  fontSize: '14px', fontWeight: 500, cursor: 'pointer',
+                  background: theme.primaryBg, color: theme.primaryText, border: 'none',
+                }}
+              >
                 Alle akzeptieren
               </button>
-              <button onClick={() => setErweitert(true)} className={btnOutline}>
+              <button
+                onClick={() => setErweitert(true)}
+                style={{
+                  width: '100%', borderRadius: '6px', padding: '8px 16px',
+                  fontSize: '14px', fontWeight: 500, cursor: 'pointer',
+                  background: 'transparent', color: theme.text,
+                  border: `1px solid ${theme.borderColor}`,
+                }}
+              >
                 Anpassen
               </button>
               <button
                 onClick={nurNotwendige}
-                className="text-xs text-background/60 hover:text-background transition-colors py-1 cursor-pointer"
+                style={{
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  fontSize: '12px', color: theme.textMuted, padding: '4px 0',
+                }}
               >
                 Nur notwendige
               </button>
