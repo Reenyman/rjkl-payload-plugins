@@ -109,6 +109,7 @@ export function CookieBanner({ theme: themeOverrides, datenschutzLink = '/datens
 
   return (
     <div
+      data-cookie-banner-wrapper
       style={{
         position: 'fixed',
         zIndex: 50,
@@ -123,11 +124,13 @@ export function CookieBanner({ theme: themeOverrides, datenschutzLink = '/datens
     >
       <style>{`
         @media (min-width: 640px) {
-          [data-cookie-banner-container] {
-            bottom: 16px !important;
-            right: 16px !important;
+          [data-cookie-banner-wrapper] {
+            bottom: 20px !important;
+            right: 20px !important;
             left: auto !important;
             max-width: 384px !important;
+          }
+          [data-cookie-banner-container] {
             border-radius: 12px !important;
           }
         }
